@@ -47,7 +47,7 @@ def main():
         if image_file is not None:
             our_image = Image.open(image_file)
             st.text("Original Image")
-            st.image(image,use_column_width=True)
+            st.image(our_image,use_column_width=True)
             st.write(type(our_image))
 
         enhance_type = st.sidebar.radio("Enhance Type", ["Original","Gray-Scale","Brightness", "Contrast"])
