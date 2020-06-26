@@ -28,23 +28,7 @@ def detect_faces(gray,img):
     # return the blurred image
     return img
 
-def check_image_rotation(image_file):
-    for orientation in ExifTags.TAGS.keys():
-        if ExifTags.TAGS[orientation]=='Orientation':
-            break
-    if image_file._getexif() is None:
-        return image_file
-    else:
-        exif=dict(image_file._getexif().items())
 
-        if exif[orientation] == 3:
-            image=image_file.rotate(180, expand=True)
-        elif exif[orientation] == 6:
-            image=image_file.rotate(270, expand=True)
-        elif exif[orientation] == 8:
-            image=image_file.rotate(90, expand=True)
-
-        return image
 
 
 def main():
@@ -63,9 +47,22 @@ def main():
         if image_file is not None:
             our_image = Image.open(image_file)
             st.text("Original Image")
-            image = check_image_rotation(our_image)
-            st.image(image,use_column_width=True)
-            #st.write(type(our_image))
+
+        for orientation in ExifTags.TAGS.keys():
+            if ExifTags.TAGS[orientation]=='Orientation':
+                break
+
+        exif=dict(our_image._getexif().items())
+
+        if exif[orientation] == 3:
+            image=our_image.rotate(180, expand=True)
+        elif exif[orientation] == 6:
+            image=our_image.rotate(270, expand=True)
+        elif exif[orientation] == 8:
+            image=our_image.rotate(90, expand=True)
+
+        st.image(image,use_column_width=True)
+        #st.write(type(our_image))
 
         enhance_type = st.sidebar.radio("Enhance Type", ["Original","Gray-Scale","Brightness", "Contrast"])
         if enhance_type == "Gray-Scale":
@@ -88,8 +85,7 @@ def main():
             st.image(img_output, caption="Output",use_column_width=True)
         else:
             if st.image is None:
-                image = check_image_rotation(our_image)
-                st.image(image,use_column_width=True)
+                st.image(our_image, use_column_width=True)
 
 
         #face detection
@@ -97,8 +93,7 @@ def main():
         feature_choices = st.sidebar.selectbox("Find Features", task)
         if st.button("Process"):
             if feature_choices == "Faces":
-                image = check_image_rotation(our_image)
-                new_img = np.array(image.convert('RGB'))
+                new_img = np.array(our_image.convert('RGB'))
                 img = cv2.cvtColor(new_img,1)
                 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
                 result_img = detect_faces(gray,img)
