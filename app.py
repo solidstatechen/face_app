@@ -1,8 +1,8 @@
 import streamlit as streamlit
-import cv2 
-from PIL import Image,ImageEnhance
+ 
+
 import numpy as np
-import os
+
 
 def main():
 	streamlit.title("Iris EDA App with streamlit")
@@ -10,7 +10,7 @@ def main():
 
 
 if __name__ == '__main__':
-    
+
 	main()
 
 
