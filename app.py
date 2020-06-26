@@ -35,7 +35,8 @@ def main():
     """face detection app"""
     st.title("Protect-Ur-Data")
     st.text("Your data belongs to you, not a police algorithm. Select an image to blur faces")
-
+    hide_streamlit_style = """<style>#MainMenu {visibility: hidden;}footer {visibility: hidden;}</style>"""
+    st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
     activities = ["Detection" , " About"]
     choice = st.sidebar.selectbox("Select Activity", activities)
 
