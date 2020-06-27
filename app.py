@@ -41,7 +41,7 @@ def main():
     """face detection app"""
     st.title("Protect-Ur-Data")
     st.text("Your data belongs to you \nNot a police algorithm")
-    st.text("This tool utilises facial recognition algorithms to hide features")
+    st.text("This tool utilises facial recognition\nAlgorithms to hide features")
     st.text("Use BEFORE posting to socials\nAnd protect those in your pictures")
     st.text("All images are deleted\nWhen finshed")
     hide_streamlit_style = """<style>#MainMenu {visibility: hidden;}footer {visibility: hidden;}</style>"""
@@ -119,7 +119,7 @@ def main():
             else:
                 st.text("Choose a picture to use")
             st.text("The algorithm works best on group photos\nHowever the technology is still growing")
-            st.text("If a feature was not successfully blurred, at least you know\nThat a police algorithm would also struggle to find that face")
+            st.text("Not all faces may be found\nHowever, another algorithm\nIs also unlikely to")
 
 
     elif choice == "About":
