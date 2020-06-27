@@ -21,7 +21,7 @@ def detect_features(gray,img,feature):
         features = face_cascade.detectMultiScale(gray,1.1, 4)
     if feature == 'eyes':
         features = eyes_cascade.detectMultiScale(gray,1.1, 4)
-    if features == 'profile':
+    if feature == 'profile':
         features = eyes_cascade.detectMultiScale(gray,1.1, 4)
 
     #Draw rectangle
