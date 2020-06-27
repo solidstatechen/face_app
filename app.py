@@ -91,30 +91,31 @@ def main():
         feature_choices = st.sidebar.selectbox("Find Features", task)
 
         if st.button("Process"):
-            if feature_choices == "Faces":
-                st.text("Face blur output")
-                new_img = np.array(our_image.convert('RGB'))
-                img = cv2.cvtColor(new_img,1)
-                gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-                result_img = detect_features(gray,img,'face')
-                st.image(result_img,use_column_width=True)
-                #st.success("found {} faces".format(result_faces))
-            
-            if feature_choices == "Eyes":
-                st.text("Eyes blur output")
-                new_img = np.array(our_image.convert('RGB'))
-                img = cv2.cvtColor(new_img,1)
-                gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-                result_img = detect_features(gray,img,'eyes')
-                st.image(result_img,use_column_width=True)
+            if image_file is not None:
+                if feature_choices == "Faces":
+                    st.text("Face blur output")
+                    new_img = np.array(our_image.convert('RGB'))
+                    img = cv2.cvtColor(new_img,1)
+                    gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+                    result_img = detect_features(gray,img,'face')
+                    st.image(result_img,use_column_width=True)
+                    #st.success("found {} faces".format(result_faces))
+                
+                if feature_choices == "Eyes":
+                    st.text("Eyes blur output")
+                    new_img = np.array(our_image.convert('RGB'))
+                    img = cv2.cvtColor(new_img,1)
+                    gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+                    result_img = detect_features(gray,img,'eyes')
+                    st.image(result_img,use_column_width=True)
 
-            if feature_choices == "Profile":
-                st.text("Profile-face blur output")
-                new_img = np.array(our_image.convert('RGB'))
-                img = cv2.cvtColor(new_img,1)
-                gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-                result_img = detect_features(gray,img,'profile')
-                st.image(result_img,use_column_width=True)
+                if feature_choices == "Profile":
+                    st.text("Profile-face blur output")
+                    new_img = np.array(our_image.convert('RGB'))
+                    img = cv2.cvtColor(new_img,1)
+                    gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+                    result_img = detect_features(gray,img,'profile')
+                    st.image(result_img,use_column_width=True)
 
             st.text("The algorithm works best on group photos\nHowever the technology is still growing")
             st.text("If a feature was not successfully blurred, at least you know\nThat a police algorithm would also struggle to find that face")
