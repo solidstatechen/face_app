@@ -101,8 +101,9 @@ def main():
                         our_image=our_image.rotate(270, expand=True)
                     elif exif[orientation] == 8:
                         our_image=our_image.rotate(90, expand=True)
-
-
+                except (AttributeError, KeyError, IndexError):
+                # cases: image don't have getexif
+                    pass
                 new_img = np.array(our_image.convert('RGB'))
                 img = cv2.cvtColor(new_img,1)
                 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
