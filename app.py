@@ -13,7 +13,7 @@ def load_image(img):
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 eyes_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
-
+profile_cascade = cv2.CascadeClassifier('haarcascade_profileface.xml')
 
 def detect_features(gray,img,feature):
     #detect faces
@@ -21,7 +21,9 @@ def detect_features(gray,img,feature):
         features = face_cascade.detectMultiScale(gray,1.1, 4)
     if feature == 'eyes':
         features = eyes_cascade.detectMultiScale(gray,1.1, 4)
-    
+    if features == 'profile':
+        features = eyes_cascade.detectMultiScale(gray,1.1, 4)
+
     #Draw rectangle
     for (x,y,w,h) in features:
         # select the areas where the face was found
@@ -83,27 +85,11 @@ def main():
 
 
         #face detection
-        task = ["Faces","Eyes"]
+        task = ["Faces","Eyes","Profile"]
         feature_choices = st.sidebar.selectbox("Find Features", task)
 
         if st.button("Process"):
             if feature_choices == "Faces":
-                try:
-                    for orientation in ExifTags.TAGS.keys():
-                        if ExifTags.TAGS[orientation]=='Orientation':
-                            break
-
-                    exif=dict(our_image._getexif().items())
-
-                    if exif[orientation] == 3:
-                        our_image=our_image.rotate(180, expand=True)
-                    elif exif[orientation] == 6:
-                        our_image=our_image.rotate(270, expand=True)
-                    elif exif[orientation] == 8:
-                        our_image=our_image.rotate(90, expand=True)
-                except (AttributeError, KeyError, IndexError):
-                # cases: image don't have getexif
-                    pass
                 new_img = np.array(our_image.convert('RGB'))
                 img = cv2.cvtColor(new_img,1)
                 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
@@ -116,6 +102,13 @@ def main():
                 img = cv2.cvtColor(new_img,1)
                 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
                 result_img = detect_features(gray,img,'eyes')
+                st.image(result_img,use_column_width=True)
+
+            if feature_choices == "Profile":
+                new_img = np.array(our_image.convert('RGB'))
+                img = cv2.cvtColor(new_img,1)
+                gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+                result_img = detect_features(gray,img,'profile')
                 st.image(result_img,use_column_width=True)
 
     elif choice == "About":
