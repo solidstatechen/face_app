@@ -51,7 +51,7 @@ def main():
         if image_file is not None:
             
             st.text("Original Image")
-
+            '''
             try:
                 #image=Image.open(filepath)
                 our_image = Image.open(image_file)
@@ -73,8 +73,8 @@ def main():
 
             except (AttributeError, KeyError, IndexError):
                 # cases: image don't have getexif
-                our_image = Image.open(image_file)
-
+                our_image = Image.open(image_file)'''
+            our_image = Image.open(image_file)
             st.image(our_image,use_column_width=True)
             st.write(type(our_image))
         else:
