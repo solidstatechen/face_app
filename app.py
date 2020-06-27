@@ -51,7 +51,7 @@ def main():
         if image_file is not None:
             
             st.text("Original Image")
-            '''
+
             try:
                 #image=Image.open(filepath)
                 our_image = Image.open(image_file)
@@ -73,8 +73,8 @@ def main():
 
             except (AttributeError, KeyError, IndexError):
                 # cases: image don't have getexif
-                our_image = Image.open(image_file)'''
-            our_image = Image.open(image_file)
+                our_image = Image.open(image_file)
+
             st.image(our_image,use_column_width=True)
             st.write(type(our_image))
         else:
@@ -88,6 +88,21 @@ def main():
 
         if st.button("Process"):
             if feature_choices == "Faces":
+                try:
+                    for orientation in ExifTags.TAGS.keys():
+                        if ExifTags.TAGS[orientation]=='Orientation':
+                            break
+
+                    exif=dict(our_image._getexif().items())
+
+                    if exif[orientation] == 3:
+                        our_image=our_image.rotate(180, expand=True)
+                    elif exif[orientation] == 6:
+                        our_image=our_image.rotate(270, expand=True)
+                    elif exif[orientation] == 8:
+                        our_image=our_image.rotate(90, expand=True)
+
+
                 new_img = np.array(our_image.convert('RGB'))
                 img = cv2.cvtColor(new_img,1)
                 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
