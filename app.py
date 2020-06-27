@@ -116,7 +116,8 @@ def main():
                     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
                     result_img = detect_features(gray,img,'profile')
                     st.image(result_img,use_column_width=True)
-
+            else:
+                st.text("Choose a picture to use")
             st.text("The algorithm works best on group photos\nHowever the technology is still growing")
             st.text("If a feature was not successfully blurred, at least you know\nThat a police algorithm would also struggle to find that face")
 
