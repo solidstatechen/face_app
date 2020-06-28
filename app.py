@@ -87,7 +87,7 @@ def main():
 
 
         #face detection
-        task = ["Faces","Eyes","Profile"]
+        task = ["Faces"]
         feature_choices = st.sidebar.selectbox("Find Features", task)
 
         if st.button("Process"):
