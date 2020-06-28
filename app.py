@@ -118,6 +118,7 @@ def main():
                     st.image(result_img,use_column_width=True)
             else:
                 st.text("Choose a picture to use")
+            st.text('Screenshot or long press to download image')
             st.text("The algorithm works best on group photos\nHowever the technology is still growing")
             st.text("Not all faces may be found\nHowever, another algorithm\nIs also unlikely to")
 
